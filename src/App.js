@@ -1,10 +1,11 @@
 import './App.css';
 import {useState} from 'react';
+import TheCountdown2 from './TheCountdown2';
 
 function App() {
 
 const [sessionLength, setSessionLength] = useState(1);
-const [sessionLengthSeconds, setSessionLengthSeconds] = useState(60);
+const [crono, setCrono] = useState('');
 const [breakTime, setBreakTime] = useState(1);
 
  const SessionLengthDecrease = () => {
@@ -20,12 +21,13 @@ const [breakTime, setBreakTime] = useState(1);
   }else setSessionLength(sessionLength+1);
  } 
 
-    var theCountdown =()=> {
-   
+    /*var TheCountdown =()=> {
 
     let seconds = 60;    
     let minutes = sessionLength > 0 ? sessionLength-1 : sessionLength;
+
     const theInterval = setInterval(function(){
+      
       document.getElementById("start-stopId").disabled = true;
     if (seconds === 0 && minutes === 0){
       console.log('Its here');
@@ -38,8 +40,14 @@ const [breakTime, setBreakTime] = useState(1);
     }  
       seconds = seconds -1;
       seconds > 9 ? console.log( `${minutes}:${seconds}`) : console.log( `${minutes}:0${seconds}`);
+      setCrono(seconds > 9 ? `${minutes}:${seconds}`: console.log `${minutes}:0${seconds}`);
+      return(
+        <div className="crono">
+        {seconds > 9 ? minutes+":"+seconds : minutes+":0"+seconds};
+        </div>
+      );
     }, 1000)
-  }
+  }*/
 
 
   return ( 
@@ -54,8 +62,9 @@ const [breakTime, setBreakTime] = useState(1);
     <div className="time-left">25</div>
     <button onClick={SessionLengthInscrease}>Increase</button>
     <button onClick={()=>SessionLengthDecrease()}>Decrease</button>
-    <button className="start-stop" id="start-stopId" onClick={() => theCountdown()} >Start Count Down</button>
+    <button className="start-stop" id="start-stopId" onClick={() => TheCountdown2(sessionLength, setCrono)} >Start Count Down</button>
     <button className="reset"></button>
+    <h2>{crono}</h2>
     
     </div>
   );
