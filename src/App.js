@@ -1,25 +1,50 @@
 import './App.css';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import TheCountdown2 from './TheCountdown2';
+
 
 function App() {
 
 const [sessionLength, setSessionLength] = useState(1);
-const [crono, setCrono] = useState('');
-const [breakTime, setBreakTime] = useState(1);
+const [crono, setCrono] = useState(sessionLength);
+const [breakTime, setBreakTime] = useState(0);
+const [cronoBreak, setCronoBreak] = useState(0);
+
+
+
 
  const SessionLengthDecrease = () => {
  if (sessionLength <= 1){
   setSessionLength(1);
+  setCrono(1);
  }
- else setSessionLength(sessionLength-1);
+ else {setSessionLength(sessionLength-1)
+       setCrono(crono-1);
+       
  }
-
+ }
  const SessionLengthInscrease = () => {
   if (sessionLength === 60){
   setSessionLength(60)
-  }else setSessionLength(sessionLength+1);
+  setCrono(60)
+  }else {setSessionLength(sessionLength+1);
+    let cronoSum = 0;  
+    cronoSum++;
+    setCrono(crono+1) 
+   }
  } 
+
+ const breakTimeIncrease =()=> {
+  setCronoBreak(cronoBreak+ 1)
+  setBreakTime(breakTime+ 1)
+  
+ }
+
+ const breakTimeDecrease =()=> {
+  setCronoBreak(cronoBreak - 1);
+  setBreakTime(breakTime - 1)
+ 
+}
 
     /*var TheCountdown =()=> {
 
@@ -62,9 +87,14 @@ const [breakTime, setBreakTime] = useState(1);
     <div className="time-left">25</div>
     <button onClick={SessionLengthInscrease}>Increase</button>
     <button onClick={()=>SessionLengthDecrease()}>Decrease</button>
-    <button className="start-stop" id="start-stopId" onClick={() => TheCountdown2(sessionLength, setCrono)} >Start Count Down</button>
-    <button className="reset"></button>
-    <h2>{crono}</h2>
+    <button className="start-stop" id="start-stopId" onClick={() => TheCountdown2(sessionLength, setCrono, breakTime, setCronoBreak)} >Start Count Down</button>
+    <button className="reset">Reset</button>
+    <br/>
+    <button onClick={()=> breakTimeIncrease()}>Increase Break</button>
+    <button onClick={() => breakTimeDecrease()} >Decrease Break</button>
+    <h2>Session: {crono}</h2>
+    <h2>Break: {cronoBreak}</h2>
+
     
     </div>
   );
